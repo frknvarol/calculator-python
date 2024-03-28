@@ -1,5 +1,7 @@
 def precedence(char):
     match char:
+        case '(':
+            return 4
         case '^':
             return 3
         case '*':
@@ -29,6 +31,8 @@ def infix_split(infix):
 
     if len(infix[start_index:]) != 0:
         result.append((infix[start_index:]))
+    while '' in result:
+        result.remove('')
     return result
 
 
@@ -47,9 +51,28 @@ def infix_split(infix):
 # 13. While there are operators on the stack, pop them to the queue
 
 def infix_to_postfix(infix):
-    result = []
     operator_stack = []
+    output_stack = []
+    infix = infix_split(infix)
+    for i in range(len(infix)):
+        if precedence(infix[i]) == 0:
+            output_stack.append(infix[i])
+        else:
+            while len(operator_stack) != 0 and precedence(operator_stack[len(operator_stack) - 1]) > precedence(infix[i]):
+                output_stack.append(operator_stack.pop())
+            operator_stack.append(infix[i])
+        if infix[i] == '(':
+            operator_stack.append(infix[i])
+        if infix[i] == ')':
+            while len(operator_stack) != 0 and operator_stack[len(operator_stack) - 1] != '(':
+                output_stack.append(operator_stack.pop())
+            #operator_stack.pop()
+    while len(operator_stack) != 0:
+        output_stack.append(operator_stack.pop())
+
+    return output_stack
 
 
 
-print(infix_split('123*45+44334'))
+
+print(infix_to_postfix('4+18/(9-3)'))
