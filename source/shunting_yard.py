@@ -10,6 +10,10 @@ def precedence(char):
             return 1
         case '-':
             return 1
+        case '(':
+            return -1
+        case ')':
+            return -1
         case _:
             return 0
 
@@ -50,31 +54,29 @@ def infix_split(infix):
 # 13. While there are operators on the stack, pop them to the queue
 
 def infix_to_postfix(infix):
+
     operator_stack = []
     output_stack = []
     infix = infix_split(infix)
-    for i in range(len(infix)):
-        if precedence(infix[i]) == 0 :
-            output_stack.append(infix[i])
-        else:
-            while len(operator_stack) != 0 and precedence(operator_stack[len(operator_stack) - 1]) > precedence(infix[i]):
-                output_stack.append(operator_stack.pop())
-            operator_stack.append(infix[i])
-        if infix[i] == '(':
-            operator_stack.append(infix[i])
-        elif infix[i] == ')':
-            while len(operator_stack) != 0 and operator_stack[len(operator_stack) - 1] != '(':
-                if operator_stack[len(operator_stack) - 1] not in '()':
-                    output_stack.append(operator_stack.pop())
-            if operator_stack[len(operator_stack) - 1] in '()':
-                operator_stack.pop()
-    while len(operator_stack) != 0:
-        output_stack.append(operator_stack.pop())
 
-    for x in output_stack:
-        if x in '()':
-            output_stack.remove(x)
+    for x in infix:
+        if precedence(x) == 0:
+            output_stack.append(x)
+        elif precedence(x) > 0:
+            while len(operator_stack) > 0 and precedence(operator_stack[-1]) >= precedence(x):
+                output_stack.append((operator_stack.pop()))
+            operator_stack.append(x)
+        elif x == '(':
+            operator_stack.append(x)
+        elif x == ')':
+            while operator_stack[-1] != '(':
+                output_stack.append(operator_stack.pop())
+            operator_stack.pop()
+
+    while len(operator_stack) > 0:
+        output_stack.append(operator_stack.pop())
 
     return output_stack
 
 
+print(infix_to_postfix('57*12/(3+5)/4'))
