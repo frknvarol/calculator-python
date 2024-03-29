@@ -1,7 +1,5 @@
 def precedence(char):
     match char:
-        case '(':
-            return 4
         case '^':
             return 3
         case '*':
@@ -17,6 +15,7 @@ def precedence(char):
 
 
 def infix_split(infix):
+    infix = infix.replace(' ', '')
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     result = []
     start_index = 0
@@ -55,7 +54,7 @@ def infix_to_postfix(infix):
     output_stack = []
     infix = infix_split(infix)
     for i in range(len(infix)):
-        if precedence(infix[i]) == 0:
+        if precedence(infix[i]) == 0 :
             output_stack.append(infix[i])
         else:
             while len(operator_stack) != 0 and precedence(operator_stack[len(operator_stack) - 1]) > precedence(infix[i]):
@@ -63,16 +62,19 @@ def infix_to_postfix(infix):
             operator_stack.append(infix[i])
         if infix[i] == '(':
             operator_stack.append(infix[i])
-        if infix[i] == ')':
+        elif infix[i] == ')':
             while len(operator_stack) != 0 and operator_stack[len(operator_stack) - 1] != '(':
-                output_stack.append(operator_stack.pop())
-            #operator_stack.pop()
+                if operator_stack[len(operator_stack) - 1] not in '()':
+                    output_stack.append(operator_stack.pop())
+            if operator_stack[len(operator_stack) - 1] in '()':
+                operator_stack.pop()
     while len(operator_stack) != 0:
         output_stack.append(operator_stack.pop())
+
+    for x in output_stack:
+        if x in '()':
+            output_stack.remove(x)
 
     return output_stack
 
 
-
-
-print(infix_to_postfix('4+18/(9-3)'))
