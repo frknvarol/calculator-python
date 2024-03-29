@@ -78,5 +78,3 @@ def infix_to_postfix(infix):
 
     return output_stack
 
-
-print(infix_to_postfix('57*12/(3+5)/4'))

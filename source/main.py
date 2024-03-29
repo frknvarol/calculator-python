@@ -1,2 +1,15 @@
-from shunting_yard import infix_to_postfix
+from tkinter import *
+from calculator import calculate
 
+root = Tk()
+
+ent = Entry(root)
+ent.pack()
+
+def tst():
+    print(calculate(ent.get()))
+
+my_button = Button(root, text="Calculate", command=tst)
+my_button.pack()
+
+root.mainloop()

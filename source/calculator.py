@@ -24,8 +24,6 @@ def calculate(infix):
             elif x == '-':
                 operand_stack.append(int(penultimate) - int(last))
 
-    return operand_stack
+    return operand_stack[0]
 
 
-print(infix_to_postfix("57*12/(3+5)/4"))
-print(calculate("57*12/(3+5)/4"))
