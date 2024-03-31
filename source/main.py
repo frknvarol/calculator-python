@@ -6,8 +6,10 @@ root = Tk()
 ent = Entry(root)
 ent.pack()
 
+
 def tst():
     print(calculate(ent.get()))
+
 
 my_button = Button(root, text="Calculate", command=tst)
 my_button.pack()

@@ -201,19 +201,6 @@ __pycache__
 
 # Distribution / packaging
 .Python build/
-.installed.cfg
-*.egg
-*.manifest
-*.spec
-
-
-# Unit test / coverage reports
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
 
 
 
