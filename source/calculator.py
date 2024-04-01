@@ -81,10 +81,10 @@ def calculate(infix):
 
     for x in postfix:
         if precedence(x) == 0:
-            operand_stack.append(x)
+            operand_stack.append(Decimal(x))
         else:
-            last = Decimal(int(operand_stack.pop()))
-            penultimate = Decimal(int(operand_stack.pop()))
+            last = operand_stack.pop()
+            penultimate = operand_stack.pop()
 
             if x == '^':
                 operand_stack.append(penultimate ** last)
