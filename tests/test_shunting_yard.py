@@ -1,6 +1,6 @@
 import pytest
-import source.calculator as shunting_yard
+import source.calculator as calcualtor
 
-def test_shunting_yard():
-    result = shunting_yard.infix_to_postfix('4+18/(9-3)')
-    assert result == ['4', '18', '9', '3', '-', '/', '+']
+
+def test_calculator(string: str):
+    assert calcualtor.calculate(string) == eval(string)

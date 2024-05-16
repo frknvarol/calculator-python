@@ -14,5 +14,4 @@ def tst():
 my_button = Button(root, text="Calculate", command=tst)
 my_button.pack()
 
-#branch deneme
-#branch deneme 2
+root.mainloop()

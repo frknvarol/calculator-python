@@ -97,4 +97,11 @@ def calculate(infix):
             elif x == '-':
                 operand_stack.append(penultimate - last)
 
-    return operand_stack[0]
+    evaluation = eval(infix)
+    calculation = int(operand_stack[0])
+
+    rel_error = abs(evaluation - calculation)/abs(evaluation)
+    print("relative error: ", rel_error)
+
+    print('eval:' + str(evaluation))
+    return calculation
